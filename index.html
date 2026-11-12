@@ -1,13 +1,144 @@
-<html>
-  <head>
-    <title>Fintech 14 Homepage</title>
-  </head>
-  <body>
-    <h1>Welcome to Fintech 14 Homepage</h1>
-    <u1>
-      <li>Instructor</li>
-      <li>Student 1</li>
-      <li>Student 2</li>
-    </u1>
-  </body>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fintech 14 Homepage</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 48px 24px;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+
+    .card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      color: #e2e8f0;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 12px;
+    }
+
+    .member-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .member-item {
+      background-color: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .member-item:hover {
+      transform: translateY(-3px);
+      border-color: #38bdf8;
+    }
+
+    .role {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #38bdf8;
+    }
+
+    .role.student {
+      color: #34d399;
+    }
+
+    .name {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">14th Cohort</span>
+      <h1>Welcome to Fintech 14 Homepage</h1>
+      <p>Big Data · AI · Financial Technology</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Members</h2>
+        <ul class="member-list">
+          <li class="member-item">
+            <span class="role">Instructor</span>
+            <span class="name">Instructor</span>
+          </li>
+          <li class="member-item">
+            <span class="role student">Student</span>
+            <span class="name">Student 1</span>
+          </li>
+          <li class="member-item">
+            <span class="role student">Student</span>
+            <span class="name">Student 2</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
 </html>
