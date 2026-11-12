@@ -1,144 +1,1411 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fintech 14 Homepage</title>
+  <title>Fintech 14 Homepage | AI · Big Data · Financial Technology</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Google Fonts: Inter & JetBrains Mono & Pretendard -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Pretendard', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            fintech: {
+              bg: '#070b14',
+              card: '#0f172a',
+              border: '#1e293b',
+              cyan: '#38bdf8',
+              emerald: '#10b981',
+              indigo: '#6366f1',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-glass: rgba(255, 255, 255, 0.82);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --border-color: #e2e8f0;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+    }
+
+    html.dark {
+      --bg-primary: #070b14;
+      --bg-secondary: #0f172a;
+      --bg-glass: rgba(15, 23, 42, 0.75);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --border-color: rgba(51, 65, 85, 0.7);
+      --accent-glow: rgba(56, 189, 248, 0.25);
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, sans-serif;
-      background-color: #0f172a;
-      color: #f8fafc;
-      line-height: 1.6;
-      padding: 40px 20px;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
+    /* Glassmorphism Surface */
+    .glass-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    header {
-      text-align: center;
-      padding: 48px 24px;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border: 1px solid #334155;
-      border-radius: 16px;
-      margin-bottom: 32px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 12px 32px -8px var(--accent-glow);
     }
 
-    .badge {
-      display: inline-block;
-      background-color: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 999px;
-      margin-bottom: 12px;
+    /* Glowing Gradient Text */
+    .text-gradient {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070b14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
     }
 
-    header p {
-      color: #94a3b8;
-      font-size: 1rem;
+    /* Ticker Flash Animations */
+    @keyframes flashGreen {
+      0% { background-color: rgba(16, 185, 129, 0.35); }
+      100% { background-color: transparent; }
+    }
+    @keyframes flashRed {
+      0% { background-color: rgba(244, 63, 94, 0.35); }
+      100% { background-color: transparent; }
+    }
+    .flash-up {
+      animation: flashGreen 0.8s ease-out;
+    }
+    .flash-down {
+      animation: flashRed 0.8s ease-out;
     }
 
-    .card {
-      background-color: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 28px;
-    }
-
-    h2 {
-      font-size: 1.25rem;
-      margin-bottom: 20px;
-      color: #e2e8f0;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 12px;
-    }
-
-    .member-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-    }
-
-    .member-item {
-      background-color: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .member-item:hover {
-      transform: translateY(-3px);
-      border-color: #38bdf8;
-    }
-
-    .role {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: #38bdf8;
-    }
-
-    .role.student {
-      color: #34d399;
-    }
-
-    .name {
-      font-size: 1.1rem;
-      font-weight: 600;
+    /* Grid Background Pattern */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <header>
-      <span class="badge">14th Cohort</span>
-      <h1>Welcome to Fintech 14 Homepage</h1>
-      <p>Big Data · AI · Financial Technology</p>
-    </header>
+<body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
 
-    <main>
-      <section class="card">
-        <h2>Members</h2>
-        <ul class="member-list">
-          <li class="member-item">
-            <span class="role">Instructor</span>
-            <span class="name">Instructor</span>
-          </li>
-          <li class="member-item">
-            <span class="role student">Student</span>
-            <span class="name">Student 1</span>
-          </li>
-          <li class="member-item">
-            <span class="role student">Student</span>
-            <span class="name">Student 2</span>
-          </li>
-        </ul>
-      </section>
-    </main>
+  <!-- 1. TOP REAL-TIME SIMULATED FINTECH TICKER BAR -->
+  <div class="w-full bg-slate-950 text-slate-300 border-b border-slate-800/80 text-xs font-mono z-50">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-4 overflow-x-auto no-scrollbar">
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="font-semibold text-emerald-400 tracking-wider">LIVE MARKET &amp; AI FEED</span>
+      </div>
+
+      <div id="ticker-container" class="flex items-center gap-6 shrink-0">
+        <!-- Populated dynamically by JS -->
+      </div>
+
+      <div class="hidden lg:flex items-center gap-2 shrink-0 text-slate-400">
+        <i class="fa-solid fa-microchip text-sky-400"></i>
+        <span>GPU CLUSTER: <strong id="gpu-load-text" class="text-sky-400">84.2%</strong></span>
+      </div>
+    </div>
   </div>
+
+  <!-- 2. STICKY NAVIGATION BAR -->
+  <nav class="sticky top-0 z-40 glass-card border-x-0 border-t-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 via-indigo-500 to-emerald-500 p-[1px] shadow-lg shadow-sky-500/20">
+          <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
+            <span class="font-mono font-bold text-sm text-gradient">F14</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-base tracking-tight">FINTECH 14</span>
+            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">Portal v2.4</span>
+          </div>
+          <p class="text-[11px] text-slate-400 hidden sm:block">Big Data · AI · Financial Engineering</p>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+        <a href="#members-section" class="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-users text-xs text-sky-400"></i> Members (ul/li)
+        </a>
+        <a href="#quant-section" class="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-chart-line text-xs text-emerald-400"></i> AI Quant Lab
+        </a>
+        <a href="#curriculum-section" class="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-layer-group text-xs text-indigo-400"></i> Roadmap
+        </a>
+        <a href="#dom-inspector-section" class="hover:text-sky-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-code text-xs text-amber-400"></i> HTML 실습 코드
+        </a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2.5">
+        <button id="open-add-modal-btn" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-sky-500/20 flex items-center gap-2 transition-all active:scale-95">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>멤버 추가 <code class="hidden sm:inline text-[11px] bg-black/20 px-1.5 py-0.5 rounded">&lt;li&gt;</code></span>
+        </button>
+
+        <button id="theme-toggle-btn" title="다크/라이트 모드 전환" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-sky-400 transition-colors">
+          <i id="theme-icon" class="fa-solid fa-sun text-amber-400"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 3. HERO SECTION (Preserves user's <h1>Welcome to Fintech 14 Homepage</h1>) -->
+  <header class="relative overflow-hidden bg-grid-pattern border-b border-slate-800/60">
+    <!-- Interactive Particle Canvas Background -->
+    <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-60"></canvas>
+
+    <!-- Ambient Glow Orbs -->
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/3 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-20 lg:pb-24">
+      <div class="text-center max-w-3xl mx-auto">
+        <!-- Cohort Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono font-medium mb-6 shadow-inner">
+          <i class="fa-solid fa-sparkles text-emerald-400"></i>
+          <span>14TH BIG DATA · AI · FINTECH COHORT</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping"></span>
+        </div>
+
+        <!-- Original <h1> Heading preserved for HTML Practice -->
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-4">
+          Welcome to <span class="text-gradient">Fintech 14</span> Homepage
+        </h1>
+
+        <p class="text-sm sm:text-base lg:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+          작성하신 <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20">&lt;h1&gt;</code>과 
+          <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">&lt;ul&gt; &gt; &lt;li&gt;</code> 실습 코드가 실제 금융 AI 테크 포털로 진화했습니다. 
+          실시간 멤버 디렉토리 탐색, 새 멤버 태그 동적 추가, 그리고 AI 퀀트 시뮬레이션을 직접 체험해 보세요.
+        </p>
+
+        <!-- Quick Hero CTA & Filter Triggers -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+          <a href="#members-section" class="px-5 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm shadow-lg shadow-sky-500/25 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-list-ul"></i>
+            <span>멤버 리스트(&lt;ul&gt;) 보기</span>
+          </a>
+          <button id="hero-highlight-original-btn" class="px-5 py-3 rounded-xl glass-card hover:border-emerald-400/60 text-sm font-semibold flex items-center gap-2 transition-all">
+            <i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i>
+            <span>원본 실습 3인(Instructor, Student 1·2) 하이라이트</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cohort Live KPI Metrics -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 text-xl shrink-0">
+            <i class="fa-solid fa-user-astronaut"></i>
+          </div>
+          <div>
+            <p class="text-xs font-mono uppercase text-slate-400">Active &lt;li&gt; Nodes</p>
+            <div class="flex items-baseline gap-2">
+              <span id="stat-total-members" class="text-2xl font-bold font-mono">6</span>
+              <span class="text-xs text-emerald-400 font-mono">Members</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl shrink-0">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <div>
+            <p class="text-xs font-mono uppercase text-slate-400">AI Quant Models</p>
+            <div class="flex items-baseline gap-2">
+              <span id="stat-ai-models" class="text-2xl font-bold font-mono">14</span>
+              <span class="text-xs text-emerald-400 font-mono">+24.8% α</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl shrink-0">
+            <i class="fa-solid fa-code-Pull-request"></i>
+          </div>
+          <div>
+            <p class="text-xs font-mono uppercase text-slate-400">Cohort Commits</p>
+            <div class="flex items-baseline gap-2">
+              <span id="stat-commits" class="text-2xl font-bold font-mono">1,428</span>
+              <span class="text-xs text-sky-400 font-mono">Git Push</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl shrink-0">
+            <i class="fa-solid fa-fire-flame-curved"></i>
+          </div>
+          <div>
+            <p class="text-xs font-mono uppercase text-slate-400">Team Cheers</p>
+            <div class="flex items-baseline gap-2">
+              <span id="stat-total-cheers" class="text-2xl font-bold font-mono">89</span>
+              <span class="text-xs text-amber-400 font-mono">Claps 👏</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+    <!-- 4. INTERACTIVE MEMBER DIRECTORY SECTION (Semantic <ul> and <li>) -->
+    <section id="members-section" class="scroll-mt-20">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-mono text-sky-400 mb-2">
+            <span class="px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">&lt;ul id="member-list"&gt;</span>
+            <span>오타였던 &lt;u1&gt;을 표준 시맨틱 &lt;ul&gt;로 완벽 교정!</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight flex items-center gap-3">
+            <span>Fintech 14 Cohort Directory</span>
+            <span id="member-count-badge" class="text-xs font-mono px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">6 &lt;li&gt; items</span>
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">
+            카드를 클릭하면 멤버별 상세 AI 스킬셋과 실제 HTML 태그 구조를 확인할 수 있습니다.
+          </p>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <!-- Search Input -->
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input 
+              id="member-search-input" 
+              type="text" 
+              placeholder="이름, 역할, 전공 태그 검색..." 
+              class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-xl glass-card text-sm focus:outline-none focus:border-sky-400 transition-colors"
+            />
+          </div>
+
+          <!-- Filter Tabs -->
+          <div class="flex items-center p-1 rounded-xl glass-card text-xs font-medium shrink-0">
+            <button data-filter="ALL" class="filter-tab active px-3 py-1.5 rounded-lg bg-sky-500 text-slate-950 font-semibold transition-all">
+              전체
+            </button>
+            <button data-filter="ORIGINAL" class="filter-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-sky-400 transition-all">
+              실습 원본 (3)
+            </button>
+            <button data-filter="Instructor" class="filter-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-sky-400 transition-all">
+              Instructor
+            </button>
+            <button data-filter="Student" class="filter-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-sky-400 transition-all">
+              Student
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE SEMANTIC <UL> LIST FROM USER'S HTML PRACTICE -->
+      <ul id="member-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Populated dynamically with <li> elements via JS -->
+      </ul>
+
+      <!-- Empty State when search has no match -->
+      <div id="empty-member-state" class="hidden glass-card rounded-2xl p-12 text-center my-4">
+        <div class="w-14 h-14 rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center mx-auto mb-4 text-slate-400 text-xl">
+          <i class="fa-solid fa-user-slash"></i>
+        </div>
+        <h3 class="text-lg font-bold mb-1">조건에 맞는 멤버(&lt;li&gt;)가 없습니다</h3>
+        <p class="text-sm text-slate-400 mb-4">검색어를 변경하거나 새로운 Fintech 14 멤버를 리스트에 추가해 보세요.</p>
+        <button id="reset-filter-btn" class="px-4 py-2 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/30 text-xs font-semibold hover:bg-sky-500/30 transition-all">
+          필터 초기화
+        </button>
+      </div>
+    </section>
+
+    <!-- 5. AI QUANT STRATEGY LAB & CURRICULUM ROADMAP -->
+    <section id="quant-section" class="scroll-mt-20 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Left 7 Cols: Interactive AI Quant Backtester -->
+      <div class="lg:col-span-7 glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-wave-square"></i> Cohort Live Playground
+              </span>
+              <h2 class="text-xl sm:text-2xl font-bold mt-1">Fintech 14 AI 퀀트 수익률 시뮬레이터</h2>
+            </div>
+
+            <!-- Strategy Selector Buttons -->
+            <div class="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/90 border border-slate-800 text-xs font-mono">
+              <button data-strategy="ai_momentum" class="strategy-btn px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold transition-all">
+                AI Momentum
+              </button>
+              <button data-strategy="bigdata_alpha" class="strategy-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">
+                BigData NLP
+              </button>
+              <button data-strategy="deep_hedge" class="strategy-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">
+                RL Hedge
+              </button>
+            </div>
+          </div>
+
+          <!-- Strategy KPI Row -->
+          <div class="grid grid-cols-3 gap-3 mb-6">
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+              <span class="text-[11px] font-mono text-slate-400 block">CUMULATIVE RETURN</span>
+              <span id="quant-return" class="text-lg sm:text-xl font-bold font-mono text-emerald-400">+68.4%</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+              <span class="text-[11px] font-mono text-slate-400 block">SHARPE RATIO</span>
+              <span id="quant-sharpe" class="text-lg sm:text-xl font-bold font-mono text-sky-400">2.64</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+              <span class="text-[11px] font-mono text-slate-400 block">MAX DRAWDOWN</span>
+              <span id="quant-mdd" class="text-lg sm:text-xl font-bold font-mono text-rose-400">-6.8%</span>
+            </div>
+          </div>
+
+          <!-- Interactive SVG Chart Area -->
+          <div class="relative w-full h-60 sm:h-64 rounded-xl bg-slate-950/80 border border-slate-800/90 p-4 overflow-hidden">
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-2">
+              <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span>
+                  <span id="chart-legend-name">Fintech 14 AI Momentum</span>
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-0.5 bg-slate-500 inline-block"></span>
+                  <span>KOSPI200 Benchmark</span>
+                </span>
+              </div>
+              <span id="chart-live-status" class="text-emerald-400">● Backtest Ready</span>
+            </div>
+
+            <svg id="quant-svg" viewBox="0 0 600 180" class="w-full h-44 overflow-visible">
+              <defs>
+                <linearGradient id="lineGlow" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.4" />
+                  <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0" />
+                </linearGradient>
+              </defs>
+              <!-- Horizontal Grid Lines -->
+              <line x1="0" y1="35" x2="600" y2="35" stroke="#1e293b" stroke-dasharray="4 4" stroke-width="1" />
+              <line x1="0" y1="90" x2="600" y2="90" stroke="#1e293b" stroke-dasharray="4 4" stroke-width="1" />
+              <line x1="0" y1="145" x2="600" y2="145" stroke="#1e293b" stroke-dasharray="4 4" stroke-width="1" />
+
+              <!-- Benchmark Line -->
+              <path id="benchmark-path" d="" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="5 5" />
+
+              <!-- Strategy Area & Line -->
+              <path id="strategy-area" d="" fill="url(#lineGlow)" />
+              <path id="strategy-path" d="" fill="none" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Bottom Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mt-5 pt-4 border-t border-slate-800/80 text-xs text-slate-400">
+          <span id="quant-desc">Transformer 기반 뉴스 감성 분석 + 호가창 마이크로스트럭처 결합 모델</span>
+          <button id="resimulate-btn" class="px-3.5 py-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 font-mono font-semibold flex items-center gap-1.5 transition-all active:scale-95">
+            <i class="fa-solid fa-rotate"></i>
+            <span>새로운 시장 시나리오 생성</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right 5 Cols: Fintech 14 Curriculum & Tech Stack Roadmap -->
+      <div id="curriculum-section" class="lg:col-span-5 glass-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between scroll-mt-20">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wider text-indigo-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap"></i> Cohort Track
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold mt-1 mb-2">Fintech 14 커리큘럼 로드맵</h2>
+          <p class="text-xs text-slate-400 mb-6">단계를 클릭하면 14기에서 다루는 핵심 실습 모듈을 볼 수 있습니다.</p>
+
+          <!-- Interactive Curriculum Steps -->
+          <div id="roadmap-list" class="space-y-3">
+            <!-- Step 1 -->
+            <div data-step="0" class="roadmap-item cursor-pointer p-4 rounded-xl bg-slate-900/80 border border-sky-500/50 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold flex items-center justify-center">01</span>
+                  <div>
+                    <h3 class="text-sm font-bold">Web Basics &amp; Financial Python</h3>
+                    <p class="text-[11px] text-slate-400">HTML5/DOM · Pandas · 금융 시계열 전처리</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400">진행중 (현재 실습)</span>
+              </div>
+              <div class="roadmap-detail mt-3 pt-3 border-t border-slate-800 text-xs text-slate-300 space-y-1.5">
+                <p>✓ 시맨틱 웹 마크업(<code class="text-sky-400">&lt;h1&gt;, &lt;ul&gt;, &lt;li&gt;</code>) 및 대시보드 UI 구현</p>
+                <p>✓ OpenAPI 기반 실시간 주가·환율 데이터 파이프라인 수집</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div data-step="1" class="roadmap-item cursor-pointer p-4 rounded-xl bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 font-mono text-xs font-bold flex items-center justify-center">02</span>
+                  <div>
+                    <h3 class="text-sm font-bold">Big Data Pipeline &amp; ML/DL</h3>
+                    <p class="text-[11px] text-slate-400">Spark · Kafka · 신용평가 및 이상거래 탐지(FDS)</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">Phase 2</span>
+              </div>
+              <div class="roadmap-detail hidden mt-3 pt-3 border-t border-slate-800 text-xs text-slate-300 space-y-1.5">
+                <p>✓ 대용량 카드 트랜잭션 실시간 이상탐지(Fraud Detection) 모델링</p>
+                <p>✓ XGBoost / LightGBM / PyTorch 딥러닝 하이퍼파라미터 튜닝</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div data-step="2" class="roadmap-item cursor-pointer p-4 rounded-xl bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 font-mono text-xs font-bold flex items-center justify-center">03</span>
+                  <div>
+                    <h3 class="text-sm font-bold">Financial LLM &amp; Quant Engineering</h3>
+                    <p class="text-[11px] text-slate-400">RAG 금융 에이전트 · 파생상품 가격결정 · 백테스팅</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">Phase 3</span>
+              </div>
+              <div class="roadmap-detail hidden mt-3 pt-3 border-t border-slate-800 text-xs text-slate-300 space-y-1.5">
+                <p>✓ 한국어 공시(DART) 및 연준(FOMC) 의사록 분석 금융 특화 LLM 구축</p>
+                <p>✓ 멀티팩터 포트폴리오 최적화 및 자동 매매 알고리즘 설계</p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div data-step="3" class="roadmap-item cursor-pointer p-4 rounded-xl bg-slate-900/40 border border-slate-800 hover:border-slate-700 transition-all">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 font-mono text-xs font-bold flex items-center justify-center">04</span>
+                  <div>
+                    <h3 class="text-sm font-bold">AI FinTech Capstone Project</h3>
+                    <p class="text-[11px] text-slate-400">실전 기업 연계 프로젝트 · 클라우드 배포</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">Final</span>
+              </div>
+              <div class="roadmap-detail hidden mt-3 pt-3 border-t border-slate-800 text-xs text-slate-300 space-y-1.5">
+                <p>✓ Instructor 멘토링 기반 팀별 풀스택 AI 핀테크 서비스 런칭</p>
+                <p>✓ Docker · Kubernetes · FastAPI 실시간 모델 서빙 아키텍처 완성</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs">
+          <span class="text-slate-400">현재 기수 진도율</span>
+          <span class="font-mono font-bold text-emerald-400">STEP 01 · HTML5 &amp; DOM Mastery</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. LIVE HTML PRACTICE DOM INSPECTOR (Educational Comparison Box) -->
+    <section id="dom-inspector-section" class="scroll-mt-20 glass-card rounded-2xl p-6 sm:p-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <span class="text-xs font-mono uppercase text-amber-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-laptop-code"></i> Live HTML Structure Inspector
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold mt-1">실습 코드 비교 &amp; 실시간 &lt;ul&gt; 코드 생성기</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            처음에 작성하신 코드의 <code class="text-rose-400 font-mono">&lt;u1&gt;</code> 오타를 고치고 멤버를 추가하면, 아래 HTML 코드가 실시간으로 업데이트됩니다!
+          </p>
+        </div>
+        <button id="copy-html-btn" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-400 border border-slate-700 text-xs font-mono font-semibold flex items-center gap-2 self-start sm:self-auto transition-all">
+          <i class="fa-regular fa-copy"></i>
+          <span id="copy-btn-text">순수 HTML 코드 복사</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Before: User's Original Snippet with Typo Highlight -->
+        <div class="rounded-xl bg-slate-950 border border-slate-800 p-4 font-mono text-xs overflow-x-auto">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-slate-400">
+            <span><i class="fa-solid fa-circle-exclamation text-rose-400 mr-1.5"></i> 수정 전 (작성하셨던 원본 코드)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-rose-500/15 text-rose-400">&lt;u1&gt; 오타 발견</span>
+          </div>
+<pre class="leading-relaxed text-slate-300"><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Fintech 14 Homepage&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Welcome to Fintech 14 Homepage&lt;/h1&gt;
+    <span class="bg-rose-500/20 text-rose-300 px-1 rounded border border-rose-500/40">&lt;u1&gt;</span> <span class="text-rose-400">&lt;-- 숫자 1 대신 알파벳 l(엘) 사용 필요!</span>
+      &lt;li&gt;Instructor&lt;/li&gt;
+      &lt;li&gt;Student 1&lt;/li&gt;
+      &lt;li&gt;Student 2&lt;/li&gt;
+    <span class="bg-rose-500/20 text-rose-300 px-1 rounded border border-rose-500/40">&lt;/u1&gt;</span>
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <!-- After: Live Synchronized Clean HTML Output -->
+        <div class="rounded-xl bg-slate-950 border border-emerald-500/30 p-4 font-mono text-xs overflow-x-auto">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800 text-slate-400">
+            <span><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> 수정 완료 &amp; 현재 페이지 실시간 연동 HTML</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400">LIVE DOM SYNC</span>
+          </div>
+          <pre id="live-html-output" class="leading-relaxed text-emerald-300"></pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 7. FOOTER -->
+  <footer class="border-t border-slate-800/80 py-8 mt-12 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-200">Fintech 14 Homepage</span>
+        <span>·</span>
+        <span>14th Big Data &amp; AI Financial Technology Cohort</span>
+      </div>
+      <div class="font-mono text-[11px]">
+        Built with Semantic <code class="text-sky-400">&lt;h1&gt;</code> &amp; <code class="text-emerald-400">&lt;ul&gt;&lt;li&gt;</code> Architecture
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL 1: ADD NEW MEMBER (<li>) MODAL -->
+  <div id="add-member-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="glass-card w-full max-w-md rounded-2xl p-6 sm:p-7 border border-slate-700 shadow-2xl relative">
+      <button id="close-add-modal-btn" class="absolute top-5 right-5 w-8 h-8 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-1">
+        <i class="fa-solid fa-code"></i>
+        <span>document.querySelector('ul').appendChild(li)</span>
+      </div>
+      <h3 class="text-xl font-bold mb-1">새 멤버(&lt;li&gt;) 리스트에 추가</h3>
+      <p class="text-xs text-slate-400 mb-5">입력한 정보로 새로운 <code class="text-sky-400">&lt;li&gt;</code> 요소가 즉시 생성됩니다.</p>
+
+      <form id="add-member-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">이름 / 닉네임 (예: Student 3, 홍길동)</label>
+          <input id="input-name" type="text" required placeholder="Student 3" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:outline-none focus:border-sky-400" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">역할 (Role)</label>
+            <select id="input-role" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:outline-none focus:border-sky-400">
+              <option value="Student">Student (교육생)</option>
+              <option value="Instructor">Instructor (강사/멘토)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">현재 상태</label>
+            <select id="input-status" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:outline-none focus:border-sky-400">
+              <option value="HTML/DOM 실습중">HTML/DOM 실습중</option>
+              <option value="AI 모델 학습중">AI 모델 학습중</option>
+              <option value="퀀트 백테스팅">퀀트 백테스팅</option>
+              <option value="코드 리뷰중">코드 리뷰중</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">전문 트랙 (Specialty)</label>
+          <select id="input-specialty" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:outline-none focus:border-sky-400">
+            <option value="AI Quant & Algorithmic Trading">AI Quant &amp; Algorithmic Trading</option>
+            <option value="Financial NLP & LLM Agent">Financial NLP &amp; LLM Agent</option>
+            <option value="Big Data Risk & Fraud Detection">Big Data Risk &amp; Fraud Detection</option>
+            <option value="Full-Stack FinTech & Cloud">Full-Stack FinTech &amp; Cloud</option>
+            <option value="Blockchain & DeFi Protocol">Blockchain &amp; DeFi Protocol</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono uppercase text-slate-300 mb-1.5">한 줄 소개 / 목표</label>
+          <input id="input-bio" type="text" placeholder="금융 빅데이터와 AI를 결합한 차세대 퀀트 개발자!" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:outline-none focus:border-sky-400" />
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" id="cancel-add-modal-btn" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700">
+            취소
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-500 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 hover:opacity-95">
+            &lt;li&gt; 멤버 추가하기
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: MEMBER DETAIL PROFILE MODAL -->
+  <div id="member-detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="glass-card w-full max-w-lg rounded-2xl p-6 sm:p-7 border border-slate-700 shadow-2xl relative">
+      <button id="close-detail-modal-btn" class="absolute top-5 right-5 w-8 h-8 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="detail-modal-content">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-box" class="fixed bottom-6 right-6 z-50 pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+    <div class="glass-card px-4 py-3 rounded-xl border border-emerald-500/40 shadow-xl flex items-center gap-3 text-xs font-medium">
+      <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+      <span id="toast-message">알림 메시지</span>
+    </div>
+  </div>
+
+  <!-- APPLICATION JAVASCRIPT -->
+  <script>
+    // =========================================================================
+    // 1. INITIAL COHORT MEMBER DATA (Preserves Instructor, Student 1, Student 2)
+    // =========================================================================
+    const initialMembers = [
+      {
+        id: 'm-instructor',
+        name: 'Instructor',
+        koreanTitle: '책임 교수 · 수석 아키텍트',
+        role: 'Instructor',
+        isOriginal: true,
+        specialty: 'AI Quant & Financial Engineering Architect',
+        status: '실습 코드 리뷰중',
+        bio: 'Fintech 14기 총괄 멘토. 금융 시계열 딥러닝, 빅데이터 파이프라인 및 풀스택 핀테크 아키텍처를 지도합니다.',
+        cheers: 32,
+        skills: { quant: 98, ai: 95, data: 96 }
+      },
+      {
+        id: 'm-student-1',
+        name: 'Student 1',
+        koreanTitle: '14기 교육생 · AI 트레이딩 리더',
+        role: 'Student',
+        isOriginal: true,
+        specialty: 'AI Quant & Algorithmic Trading',
+        status: 'HTML/DOM 실습중',
+        bio: '원본 HTML 코드의 첫 번째 학생 노드! 강화학습 기반 자동매매와 초단타 호가창 분석을 연구하고 있습니다.',
+        cheers: 19,
+        skills: { quant: 88, ai: 91, data: 84 }
+      },
+      {
+        id: 'm-student-2',
+        name: 'Student 2',
+        koreanTitle: '14기 교육생 · 금융 NLP 스페셜리스트',
+        role: 'Student',
+        isOriginal: true,
+        specialty: 'Financial NLP & LLM Agent',
+        status: 'HTML/DOM 실습중',
+        bio: '원본 HTML 코드의 두 번째 학생 노드! 실시간 뉴스·공시 감성 분석 RAG 금융 에이전트를 개발합니다.',
+        cheers: 17,
+        skills: { quant: 82, ai: 94, data: 89 }
+      },
+      {
+        id: 'm-student-3',
+        name: 'Student 3 (김민준)',
+        koreanTitle: '14기 교육생 · 빅데이터 엔지니어',
+        role: 'Student',
+        isOriginal: false,
+        specialty: 'Big Data Risk & Fraud Detection',
+        status: 'AI 모델 학습중',
+        bio: '실시간 카드 결제 스트리밍 데이터를 처리하는 Kafka 파이프라인과 이상거래 탐지(FDS) 모델을 구축합니다.',
+        cheers: 11,
+        skills: { quant: 79, ai: 86, data: 95 }
+      },
+      {
+        id: 'm-student-4',
+        name: 'Student 4 (이서연)',
+        koreanTitle: '14기 교육생 · 풀스택 핀테크',
+        role: 'Student',
+        isOriginal: false,
+        specialty: 'Full-Stack FinTech & Cloud',
+        status: '퀀트 백테스팅',
+        bio: '직관적인 자산관리 웹 대시보드와 마이크로서비스 기반 로보어드바이저 API 서버를 설계합니다.',
+        cheers: 10,
+        skills: { quant: 85, ai: 84, data: 90 }
+      }
+    ];
+
+    let members = [...initialMembers];
+    let currentFilter = 'ALL';
+    let searchQuery = '';
+
+    // =========================================================================
+    // 2. TOAST HELPER
+    // =========================================================================
+    let toastTimer = null;
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const text = document.getElementById('toast-message');
+      text.textContent = msg;
+      box.classList.remove('opacity-0', 'translate-y-3');
+      box.classList.add('opacity-100', 'translate-y-0');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        box.classList.add('opacity-0', 'translate-y-3');
+        box.classList.remove('opacity-100', 'translate-y-0');
+      }, 2800);
+    }
+
+    // =========================================================================
+    // 3. LIVE SIMULATED FINTECH TICKER BAR
+    // =========================================================================
+    const tickerData = [
+      { symbol: 'KOSPI', price: 2684.52, change: +1.18 },
+      { symbol: 'NASDAQ', price: 18429.10, change: +1.64 },
+      { symbol: 'USD/KRW', price: 1358.40, change: -0.32 },
+      { symbol: 'BTC/KRW', price: 128450000, change: +3.45, isKRW: true },
+      { symbol: 'F14-AI-INDEX', price: 1420.88, change: +4.92 }
+    ];
+
+    function renderTicker() {
+      const container = document.getElementById('ticker-container');
+      container.innerHTML = tickerData.map((item, idx) => {
+        const isUp = item.change >= 0;
+        const colorClass = isUp ? 'text-emerald-400' : 'text-rose-400';
+        const sign = isUp ? '▲' : '▼';
+        const formattedPrice = item.isKRW 
+          ? item.price.toLocaleString('ko-KR') 
+          : item.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        return `
+          <div id="ticker-item-${idx}" class="flex items-center gap-2 px-2 py-0.5 rounded transition-colors">
+            <span class="font-bold text-slate-200">${item.symbol}</span>
+            <span class="text-slate-300">${formattedPrice}</span>
+            <span class="${colorClass} font-semibold">${sign} ${Math.abs(item.change).toFixed(2)}%</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateTickerRandomly() {
+      const idx = Math.floor(Math.random() * tickerData.length);
+      const item = tickerData[idx];
+      const deltaPercent = (Math.random() - 0.46) * 0.35;
+      item.change = +(item.change + deltaPercent).toFixed(2);
+      item.price = +(item.price * (1 + deltaPercent / 100)).toFixed(item.isKRW ? 0 : 2);
+
+      renderTicker();
+      const el = document.getElementById(`ticker-item-${idx}`);
+      if (el) {
+        el.classList.add(deltaPercent >= 0 ? 'flash-up' : 'flash-down');
+      }
+
+      // Update GPU Load slightly
+      const gpuText = document.getElementById('gpu-load-text');
+      if (gpuText) {
+        const load = (82 + Math.random() * 14).toFixed(1);
+        gpuText.textContent = `${load}%`;
+      }
+    }
+
+    // =========================================================================
+    // 4. RENDER SEMANTIC <UL> & <LI> MEMBER DIRECTORY + LIVE HTML CODE
+    // =========================================================================
+    function renderMembers() {
+      const listEl = document.getElementById('member-list');
+      const emptyEl = document.getElementById('empty-member-state');
+
+      const filtered = members.filter(m => {
+        const matchesRole = 
+          currentFilter === 'ALL' ? true :
+          currentFilter === 'ORIGINAL' ? m.isOriginal :
+          m.role === currentFilter;
+
+        const q = searchQuery.trim().toLowerCase();
+        const matchesSearch = !q || 
+          m.name.toLowerCase().includes(q) ||
+          m.role.toLowerCase().includes(q) ||
+          m.specialty.toLowerCase().includes(q) ||
+          m.bio.toLowerCase().includes(q);
+
+        return matchesRole && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        listEl.innerHTML = filtered.map((m, idx) => {
+          const isInstructor = m.role === 'Instructor';
+          const roleBadgeClass = isInstructor
+            ? 'bg-sky-500/15 text-sky-400 border-sky-500/30'
+            : 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+
+          const originalTag = m.isOriginal
+            ? `<span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">원본 HTML &lt;li&gt;</span>`
+            : `<span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">확장 &lt;li&gt;</span>`;
+
+          return `
+            <li data-id="${m.id}" class="member-li glass-card rounded-2xl p-6 cursor-pointer flex flex-col justify-between group relative overflow-hidden">
+              <!-- Top subtle gradient bar -->
+              <div class="absolute top-0 left-0 right-0 h-1 ${isInstructor ? 'bg-gradient-to-r from-sky-400 via-indigo-500 to-emerald-400' : 'bg-gradient-to-r from-emerald-400 to-sky-500'} opacity-75"></div>
+
+              <div>
+                <!-- Top Badges Row -->
+                <div class="flex items-center justify-between gap-2 mb-4">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded-full border ${roleBadgeClass}">
+                      ${m.role}
+                    </span>
+                    ${originalTag}
+                  </div>
+                  <span class="text-[11px] font-mono text-slate-400 group-hover:text-sky-400 transition-colors">
+                    &lt;li #${idx + 1}&gt;
+                  </span>
+                </div>
+
+                <!-- Member Avatar + Name -->
+                <div class="flex items-start gap-3.5 mb-3">
+                  <div class="w-12 h-12 rounded-2xl ${isInstructor ? 'bg-sky-500/15 text-sky-400 border-sky-500/30' : 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'} border flex items-center justify-center text-lg font-bold font-mono shrink-0">
+                    ${isInstructor ? '<i class="fa-solid fa-chalkboard-user"></i>' : `S${idx}`}
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold group-hover:text-sky-400 transition-colors flex items-center gap-2">
+                      <span>${m.name}</span>
+                    </h3>
+                    <p class="text-xs text-slate-400">${m.koreanTitle || (isInstructor ? '책임 교수 · 멘토' : '14기 핀테크 연구원')}</p>
+                  </div>
+                </div>
+
+                <!-- Specialty Pill -->
+                <div class="inline-flex items-center gap-1.5 text-xs font-mono text-sky-300 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-lg mb-3 w-full">
+                  <i class="fa-solid fa-microchip text-sky-400 text-[11px]"></i>
+                  <span class="truncate">${m.specialty}</span>
+                </div>
+
+                <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-5">
+                  ${m.bio}
+                </p>
+              </div>
+
+              <!-- Footer Status & Cheer Button -->
+              <div class="pt-3.5 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                <span class="flex items-center gap-1.5 text-slate-300 font-mono text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  ${m.status}
+                </span>
+
+                <button 
+                  type="button"
+                  data-cheer-id="${m.id}" 
+                  class="cheer-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40 font-mono text-xs flex items-center gap-1.5 transition-all active:scale-90"
+                  title="멤버 응원하기"
+                >
+                  <span>👏</span>
+                  <span class="font-bold">${m.cheers}</span>
+                </button>
+              </div>
+            </li>
+          `;
+        }).join('');
+      }
+
+      // Update KPI Counters & Live HTML Inspector
+      document.getElementById('stat-total-members').textContent = members.length;
+      document.getElementById('member-count-badge').textContent = `${members.length} <li> items`;
+      const totalCheers = members.reduce((acc, cur) => acc + cur.cheers, 0);
+      document.getElementById('stat-total-cheers').textContent = totalCheers;
+
+      updateLiveHtmlInspector();
+    }
+
+    function updateLiveHtmlInspector() {
+      const codeEl = document.getElementById('live-html-output');
+      const liLines = members.map(m => `      <li>${m.name} (${m.role} - ${m.specialty})</li>`).join('\n');
+      const rawHtml = `<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fintech 14 Homepage</title>
+  </head>
+  <body>
+    <h1>Welcome to Fintech 14 Homepage</h1>
+    <ul>
+${liLines}
+    </ul>
+  </body>
+</html>`;
+      codeEl.textContent = rawHtml;
+    }
+
+    // =========================================================================
+    // 5. MEMBER DETAIL MODAL & CHEER HANDLER
+    // =========================================================================
+    function openMemberDetailModal(memberId) {
+      const m = members.find(item => item.id === memberId);
+      if (!m) return;
+
+      const modal = document.getElementById('member-detail-modal');
+      const content = document.getElementById('detail-modal-content');
+      const isInstructor = m.role === 'Instructor';
+
+      content.innerHTML = `
+        <div class="flex items-center gap-2 text-xs font-mono text-sky-400 mb-3">
+          <span class="px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">&lt;li&gt; DOM Node Inspector</span>
+          <span>${m.isOriginal ? '★ 원본 실습 멤버' : '동적 추가 멤버'}</span>
+        </div>
+
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-emerald-500 p-[1px]">
+            <div class="w-full h-full bg-slate-950 rounded-[15px] flex items-center justify-center text-xl text-sky-400 font-bold">
+              ${isInstructor ? '<i class="fa-solid fa-user-tie"></i>' : '<i class="fa-solid fa-user-graduate"></i>'}
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-2xl font-bold">${m.name}</h3>
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-sky-500/15 text-sky-400 border border-sky-500/30">${m.role}</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">${m.specialty}</p>
+          </div>
+        </div>
+
+        <p class="text-sm text-slate-300 leading-relaxed bg-slate-900/70 border border-slate-800 rounded-xl p-4 mb-5">
+          ${m.bio}
+        </p>
+
+        <!-- Skill Bars -->
+        <div class="space-y-3 mb-6">
+          <h4 class="text-xs font-mono uppercase text-slate-400">Fintech 14 Core Competency</h4>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span>Quantitative Finance &amp; Modeling</span>
+              <span class="font-mono text-sky-400">${m.skills.quant}%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+              <div class="h-full bg-sky-400 rounded-full" style="width: ${m.skills.quant}%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span>AI / Deep Learning / LLM</span>
+              <span class="font-mono text-emerald-400">${m.skills.ai}%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+              <div class="h-full bg-emerald-400 rounded-full" style="width: ${m.skills.ai}%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span>Big Data &amp; Web Engineering</span>
+              <span class="font-mono text-indigo-400">${m.skills.data}%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+              <div class="h-full bg-indigo-400 rounded-full" style="width: ${m.skills.data}%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HTML Tag Preview -->
+        <div class="rounded-xl bg-slate-950 border border-slate-800 p-3 font-mono text-xs text-emerald-400 mb-5">
+          &lt;li class="fintech-member" data-role="${m.role}"&gt;${m.name}&lt;/li&gt;
+        </div>
+
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-400 font-mono">상태: <strong class="text-emerald-400">${m.status}</strong></span>
+          <button id="modal-cheer-btn" data-id="${m.id}" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-mono text-xs font-bold flex items-center gap-2 transition-all active:scale-95">
+            <span>👏 응원 보내기</span>
+            <span id="modal-cheer-count">(${m.cheers})</span>
+          </button>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      document.getElementById('modal-cheer-btn').addEventListener('click', () => {
+        m.cheers += 1;
+        document.getElementById('modal-cheer-count').textContent = `(${m.cheers})`;
+        renderMembers();
+        showToast(`${m.name} 님에게 응원의 박수를 보냈습니다! 👏`);
+      });
+    }
+
+    // =========================================================================
+    // 6. AI QUANT BACKTESTER SVG CHART GENERATOR
+    // =========================================================================
+    const strategyConfigs = {
+      ai_momentum: {
+        name: 'Fintech 14 AI Momentum',
+        cumReturn: '+68.4%',
+        sharpe: '2.64',
+        mdd: '-6.8%',
+        desc: 'Transformer 기반 실시간 금융 뉴스 감성 분석 + 호가창 마이크로스트럭처 결합 모델',
+        points: [145, 138, 130, 134, 118, 110, 102, 106, 88, 74, 65, 52, 44, 28]
+      },
+      bigdata_alpha: {
+        name: 'BigData Multi-Factor NLP',
+        cumReturn: '+54.2%',
+        sharpe: '2.31',
+        mdd: '-5.1%',
+        desc: '신용카드 결제 빅데이터 + DART 전자공시 텍스트 마이닝 결합 알파 전략',
+        points: [145, 140, 132, 125, 128, 115, 105, 95, 92, 82, 70, 62, 50, 42]
+      },
+      deep_hedge: {
+        name: 'Deep RL Dynamic Hedge',
+        cumReturn: '+43.9%',
+        sharpe: '2.89',
+        mdd: '-3.4%',
+        desc: '강화학습(PPO) 기반 변동성 제어 및 파생상품 테일 리스크 자동 헤지 전략',
+        points: [145, 141, 136, 131, 125, 120, 113, 107, 100, 93, 86, 78, 71, 62]
+      }
+    };
+
+    const benchmarkPoints = [145, 144, 148, 142, 139, 143, 136, 138, 132, 135, 129, 131, 126, 122];
+    let activeStrategyKey = 'ai_momentum';
+
+    function buildSmoothSvgPath(pts) {
+      const width = 600;
+      const stepX = width / (pts.length - 1);
+      return pts.map((y, idx) => `${idx === 0 ? 'M' : 'L'} ${(idx * stepX).toFixed(1)} ${y.toFixed(1)}`).join(' ');
+    }
+
+    function renderQuantChart(customJitter = false) {
+      const cfg = strategyConfigs[activeStrategyKey];
+      const pts = customJitter
+        ? cfg.points.map((y, i) => i === 0 ? y : Math.max(18, Math.min(160, y + (Math.random() - 0.52) * 16)))
+        : cfg.points;
+
+      const linePath = buildSmoothSvgPath(pts);
+      const areaPath = `${linePath} L 600 175 L 0 175 Z`;
+      const benchPath = buildSmoothSvgPath(benchmarkPoints);
+
+      document.getElementById('strategy-path').setAttribute('d', linePath);
+      document.getElementById('strategy-area').setAttribute('d', areaPath);
+      document.getElementById('benchmark-path').setAttribute('d', benchPath);
+
+      document.getElementById('chart-legend-name').textContent = cfg.name;
+      document.getElementById('quant-desc').textContent = cfg.desc;
+
+      if (customJitter) {
+        const randReturn = (42 + Math.random() * 35).toFixed(1);
+        const randSharpe = (2.1 + Math.random() * 0.85).toFixed(2);
+        const randMdd = (-3.2 - Math.random() * 4.5).toFixed(1);
+        document.getElementById('quant-return').textContent = `+${randReturn}%`;
+        document.getElementById('quant-sharpe').textContent = randSharpe;
+        document.getElementById('quant-mdd').textContent = `${randMdd}%`;
+      } else {
+        document.getElementById('quant-return').textContent = cfg.cumReturn;
+        document.getElementById('quant-sharpe').textContent = cfg.sharpe;
+        document.getElementById('quant-mdd').textContent = cfg.mdd;
+      }
+    }
+
+    // =========================================================================
+    // 7. HERO NETWORK PARTICLE CANVAS
+    // =========================================================================
+    function initHeroCanvas() {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let particles = [];
+
+      function resize() {
+        width = canvas.width = canvas.parentElement.clientWidth;
+        height = canvas.height = canvas.parentElement.clientHeight;
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      for (let i = 0; i < 36; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          r: 1.5 + Math.random() * 1.5
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(56, 189, 248, 0.55)';
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+            if (dist < 130) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(56, 189, 248, ${0.14 * (1 - dist / 130)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // =========================================================================
+    // 8. EVENT LISTENERS & INITIALIZATION
+    // =========================================================================
+    window.onload = function () {
+      renderTicker();
+      setInterval(updateTickerRandomly, 2400);
+
+      renderMembers();
+      renderQuantChart();
+      initHeroCanvas();
+
+      // Filter Tab Clicks
+      document.querySelectorAll('.filter-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-tab').forEach(b => {
+            b.classList.remove('bg-sky-500', 'text-slate-950', 'font-semibold');
+            b.classList.add('text-slate-400');
+          });
+          btn.classList.add('bg-sky-500', 'text-slate-950', 'font-semibold');
+          btn.classList.remove('text-slate-400');
+
+          currentFilter = btn.getAttribute('data-filter');
+          renderMembers();
+        });
+      });
+
+      // Highlight Original 3 Button in Hero
+      document.getElementById('hero-highlight-original-btn').addEventListener('click', () => {
+        const origBtn = document.querySelector('[data-filter="ORIGINAL"]');
+        if (origBtn) origBtn.click();
+        document.getElementById('members-section').scrollIntoView({ behavior: 'smooth' });
+        showToast('실습 코드의 원본 3인(Instructor, Student 1, Student 2)만 필터링했습니다!');
+      });
+
+      // Reset Filter Button
+      document.getElementById('reset-filter-btn').addEventListener('click', () => {
+        searchQuery = '';
+        document.getElementById('member-search-input').value = '';
+        const allBtn = document.querySelector('[data-filter="ALL"]');
+        if (allBtn) allBtn.click();
+      });
+
+      // Search Input
+      document.getElementById('member-search-input').addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderMembers();
+      });
+
+      // Delegate Clicks on <ul id="member-list"> for Cheer or Detail Modal
+      document.getElementById('member-list').addEventListener('click', (e) => {
+        const cheerBtn = e.target.closest('.cheer-btn');
+        if (cheerBtn) {
+          e.stopPropagation();
+          const id = cheerBtn.getAttribute('data-cheer-id');
+          const member = members.find(m => m.id === id);
+          if (member) {
+            member.cheers += 1;
+            renderMembers();
+            showToast(`${member.name} 님을 응원했습니다! 👏`);
+          }
+          return;
+        }
+
+        const liCard = e.target.closest('.member-li');
+        if (liCard) {
+          openMemberDetailModal(liCard.getAttribute('data-id'));
+        }
+      });
+
+      // Close Detail Modal
+      document.getElementById('close-detail-modal-btn').addEventListener('click', () => {
+        document.getElementById('member-detail-modal').classList.add('hidden');
+        document.getElementById('member-detail-modal').classList.remove('flex');
+      });
+
+      // Open / Close Add Member Modal
+      const addModal = document.getElementById('add-member-modal');
+      const openAddModal = () => {
+        addModal.classList.remove('hidden');
+        addModal.classList.add('flex');
+        document.getElementById('input-name').focus();
+      };
+      const closeAddModal = () => {
+        addModal.classList.add('hidden');
+        addModal.classList.remove('flex');
+      };
+
+      document.getElementById('open-add-modal-btn').addEventListener('click', openAddModal);
+      document.getElementById('close-add-modal-btn').addEventListener('click', closeAddModal);
+      document.getElementById('cancel-add-modal-btn').addEventListener('click', closeAddModal);
+
+      // Submit Add Member Form -> Dynamically appends a new item to `members` and updates `<ul>`
+      document.getElementById('add-member-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('input-name').value.trim();
+        const role = document.getElementById('input-role').value;
+        const status = document.getElementById('input-status').value;
+        const specialty = document.getElementById('input-specialty').value;
+        const bio = document.getElementById('input-bio').value.trim() || 'Fintech 14기에서 금융 AI와 빅데이터 기술을 깊이 있게 실습하고 있습니다.';
+
+        if (!name) return;
+
+        const newMember = {
+          id: 'm-' + Date.now(),
+          name,
+          koreanTitle: role === 'Instructor' ? '초빙 강사 · 테크 멘토' : '14기 교육생 · 신규 합류 노드',
+          role,
+          isOriginal: false,
+          specialty,
+          status,
+          bio,
+          cheers: 1,
+          skills: {
+            quant: 80 + Math.floor(Math.random() * 18),
+            ai: 82 + Math.floor(Math.random() * 16),
+            data: 80 + Math.floor(Math.random() * 18)
+          }
+        };
+
+        members.push(newMember);
+        currentFilter = 'ALL';
+        renderMembers();
+        closeAddModal();
+        e.target.reset();
+        showToast(`<ul> 리스트에 <li>${name}</li> 노드가 성공적으로 추가되었습니다!`);
+      });
+
+      // AI Quant Strategy Buttons
+      document.querySelectorAll('.strategy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.strategy-btn').forEach(b => {
+            b.classList.remove('bg-emerald-500', 'text-slate-950', 'font-bold');
+            b.classList.add('text-slate-400');
+          });
+          btn.classList.add('bg-emerald-500', 'text-slate-950', 'font-bold');
+          btn.classList.remove('text-slate-400');
+
+          activeStrategyKey = btn.getAttribute('data-strategy');
+          renderQuantChart(false);
+        });
+      });
+
+      document.getElementById('resimulate-btn').addEventListener('click', () => {
+        renderQuantChart(true);
+        showToast('몬테카를로 시뮬레이션으로 새로운 백테스트 경로를 생성했습니다.');
+      });
+
+      // Curriculum Roadmap Accordion
+      document.querySelectorAll('.roadmap-item').forEach(item => {
+        item.addEventListener('click', () => {
+          document.querySelectorAll('.roadmap-item').forEach(el => {
+            el.classList.remove('border-sky-500/50', 'bg-slate-900/80');
+            el.classList.add('border-slate-800', 'bg-slate-900/40');
+            el.querySelector('.roadmap-detail').classList.add('hidden');
+          });
+          item.classList.add('border-sky-500/50', 'bg-slate-900/80');
+          item.classList.remove('border-slate-800', 'bg-slate-900/40');
+          item.querySelector('.roadmap-detail').classList.remove('hidden');
+        });
+      });
+
+      // Copy Clean HTML Button
+      document.getElementById('copy-html-btn').addEventListener('click', () => {
+        const textToCopy = document.getElementById('live-html-output').textContent;
+        const tempArea = document.createElement('textarea');
+        tempArea.value = textToCopy;
+        document.body.appendChild(tempArea);
+        tempArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempArea);
+
+        const label = document.getElementById('copy-btn-text');
+        label.textContent = '복사 완료! ✓';
+        showToast('오타가 교정된 순수 HTML 실습 코드가 클립보드에 복사되었습니다.');
+        setTimeout(() => {
+          label.textContent = '순수 HTML 코드 복사';
+        }, 2000);
+      });
+
+      // Dark / Light Theme Toggle
+      document.getElementById('theme-toggle-btn').addEventListener('click', () => {
+        const htmlEl = document.documentElement;
+        const icon = document.getElementById('theme-icon');
+        htmlEl.classList.toggle('dark');
+        if (htmlEl.classList.contains('dark')) {
+          icon.className = 'fa-solid fa-sun text-amber-400';
+          showToast('다크 모드(Fintech Night)가 적용되었습니다.');
+        } else {
+          icon.className = 'fa-solid fa-moon text-indigo-500';
+          showToast('라이트 모드(Clean Daylight)가 적용되었습니다.');
+        }
+      });
+    };
+  </script>
 </body>
 </html>
